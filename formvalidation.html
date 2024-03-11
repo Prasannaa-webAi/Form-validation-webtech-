@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login and Signup</title>
+    <style>
+        body {
+            background-color: wheat;
+
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .form-container {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        form input {
+            margin-bottom: 10px;
+            padding: 5px;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+        }
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+        #login{
+            background-image: url("../../img/real.webp");
+        }
+        #signup{
+            background-color: turquoise;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="login" class="form-container">
+        <h2>Login</h2>
+        <form id="loginForm" action="#" method="post" onsubmit="return validateLoginForm()">
+            <input type="text" name="username" id="loginUsername" placeholder="Username"><br>
+            <span id="loginUsernameError" class="error"></span><br>
+            <input type="email" name="studentemail" placeholder="Student Email"><br>
+            <div style="position: relative;">
+                <input type="password" name="newpassword" id="loginNewPassword" placeholder="New Password">
+                <span class="eye-icon" onclick="togglePasswordVisibility('loginNewPassword')">👁️</span>
+            </div>
+            <span id="loginNewPasswordError" class="error"></span><br>
+            <input type="password" name="confirmpassword" id="loginConfirmPassword" placeholder="Confirm Password">
+            <span id="loginConfirmPasswordError" class="error"></span><br>
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="#signup">Signup</a></p>
+    </div>
+
+    <div id="signup" class="form-container" style="display: none;">
+        <h2>Signup</h2>
+        <form id="signupForm" action="#" method="post" onsubmit="return validateSignupForm()">
+            <input type="text" name="username" id="signupUsername" placeholder="Username"><br>
+            <span id="signupUsernameError" class="error"></span><br>
+            <input type="password" name="password" id="signupPassword" placeholder="Password">
+            <span id="signupPasswordError" class="error"></span><br>
+            <input type="password" name="confirmpassword" id="signupConfirmPassword" placeholder="Confirm Password">
+            <span id="signupConfirmPasswordError" class="error"></span><br>
+            <button type="submit">Signup</button>
+        </form>
+        <p>Already have an account? <a href="#login">Login</a></p>
+    </div>
+</div>
+
+<script>
+    function validateLoginForm() {
+        var username = document.getElementById("loginUsername").value;
+        var newPassword = document.getElementById("loginNewPassword").value;
+        var confirmPassword = document.getElementById("loginConfirmPassword").value;
+        
+        document.getElementById("loginUsernameError").innerHTML = "";
+        document.getElementById("loginNewPasswordError").innerHTML = "";
+        document.getElementById("loginConfirmPasswordError").innerHTML = "";
+        
+        if (username === "") {
+            document.getElementById("loginUsernameError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (newPassword === "") {
+            document.getElementById("loginNewPasswordError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (confirmPassword === "") {
+            document.getElementById("loginConfirmPasswordError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (newPassword !== confirmPassword) {
+            document.getElementById("loginConfirmPasswordError").innerHTML = "* Passwords do not match";
+            return false;
+        }
+        return true;
+    }
+
+    function validateSignupForm() {
+        var username = document.getElementById("signupUsername").value;
+        var password = document.getElementById("signupPassword").value;
+        var confirmPassword = document.getElementById("signupConfirmPassword").value;
+        
+        document.getElementById("signupUsernameError").innerHTML = "";
+        document.getElementById("signupPasswordError").innerHTML = "";
+        document.getElementById("signupConfirmPasswordError").innerHTML = "";
+        
+        if (username === "") {
+            document.getElementById("signupUsernameError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (password === "") {
+            document.getElementById("signupPasswordError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (confirmPassword === "") {
+            document.getElementById("signupConfirmPasswordError").innerHTML = "* Please fill this field";
+            return false;
+        }
+        if (password !== confirmPassword) {
+            document.getElementById("signupConfirmPasswordError").innerHTML = "* Passwords do not match";
+            return false;
+        }
+        return true;
+    }
+
+    function togglePasswordVisibility(inputId) {
+        var input = document.getElementById(inputId);
+        input.type = input.type === "password" ? "text" : "password";
+    }
+
+    document.querySelector('a[href="#signup"]').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('login').style.display = 'none';
+        document.getElementById('signup').style.display = 'block';
+    });
+
+    document.querySelector('a[href="#login"]').addEventListener('click', function(event) {
+        event.preventDefault();
+        document.getElementById('signup').style.display = 'none';
+        document.getElementById('login').style.display = 'block';
+    });
+</script>
+
+</body>
+</html>
